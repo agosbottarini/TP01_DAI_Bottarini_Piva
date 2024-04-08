@@ -8,8 +8,8 @@ const OMDBSearchByPage = async (searchText, page = 1) => {
         datos : {}
     };
 
-    const requestString = `http://www.omdbapi.com/?apikey=${APIKEY}&s=${searchText}`
-    ;
+    const requestString = `http://www.omdbapi.com/?apikey=${APIKEY}&s=${searchText}`;
+    
     const apiResponse = await axios.get(requestString);
     let datos = apiResponse.data;
     returnObject.respuesta = datos.Response;
@@ -24,17 +24,26 @@ cantidadTotal : 0,
 datos : {}
 };
 
-// No seas vago, acá hay que hacer el cuerpo de la función!!!
+const requestString = `http://www.omdbapi.com/?apikey=${APIKEY}&s=${searchText}`;
+
+const apiResponse = await axios.get(requestString);
+let datos = apiResponse.data;
+returnObject.respuesta = datos.Response;
+returnObject.cantidadTotal = datos.totalResults;
+returnObject.datos = datos.Search;
+
 return returnObject;
+
 };
 const OMDBGetByImdbID = async (imdbID) => {
-let returnObject = {
-respuesta : false,
-cantidadTotal : 0,
-datos : {}
+
+const requestString = `http://www.omdbapi.com/?apikey=${APIKEY}&i=${imdbID}`;
+
+const apiResponse = await axios.get(requestString);
+let datos = apiResponse.data;
+
+return datos;
+
 };
-// No seas vago, acá hay que hacer el cuerpo de la función!!!
-return returnObject;
-};
-// Exporto todo lo que yo quiero exponer del módulo:
+
 export {OMDBSearchByPage, OMDBSearchComplete, OMDBGetByImdbID};
